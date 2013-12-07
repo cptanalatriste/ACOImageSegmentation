@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import pe.edu.pucp.acoseg.ProblemConfiguration;
 import pe.edu.pucp.acoseg.ant.Environment;
-import pe.edu.pucp.acoseg.image.ImageUtilities;
+import pe.edu.pucp.acoseg.image.ImageFileHelper;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.SimpleKMeans;
 import weka.core.Attribute;
@@ -98,7 +98,7 @@ public class KmeansClassifier {
 		int[][] normalizedPheromoneMatrix = environment
 				.getNormalizedPheromoneMatrix(ProblemConfiguration.GRAYSCALE_MAX_RANGE);
 		System.out.println("Generating pheromone distribution image");
-		ImageUtilities.generateImageFromArray(normalizedPheromoneMatrix,
+		ImageFileHelper.generateImageFromArray(normalizedPheromoneMatrix,
 				ProblemConfiguration.OUTPUT_DIRECTORY
 						+ ProblemConfiguration.PHEROMONE_IMAGE_FILE);
 

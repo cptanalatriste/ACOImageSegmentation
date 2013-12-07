@@ -8,9 +8,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class ImageUtilities {
+public class ImageFileHelper {
 
-	public static int[][] getProblemGraphFromFile(String imageFile)
+	public static int[][] getImageArrayFromFile(String imageFile)
 			throws IOException {
 
 		BufferedImage image = ImageIO.read(new File(imageFile));

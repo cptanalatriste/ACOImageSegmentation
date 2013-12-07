@@ -5,7 +5,7 @@ import java.util.Date;
 import pe.edu.pucp.acoseg.ant.AntColony;
 import pe.edu.pucp.acoseg.ant.Environment;
 import pe.edu.pucp.acoseg.cluster.KmeansClassifier;
-import pe.edu.pucp.acoseg.image.ImageUtilities;
+import pe.edu.pucp.acoseg.image.ImageFileHelper;
 
 public class ACOImageSegmentation {
 
@@ -50,11 +50,11 @@ public class ACOImageSegmentation {
 					+ ProblemConfiguration.IMAGE_FILE;
 			System.out.println("Data file: " + imageFile);
 
-			int[][] imageGraph = ImageUtilities
-					.getProblemGraphFromFile(imageFile);
+			int[][] imageGraph = ImageFileHelper
+					.getImageArrayFromFile(imageFile);
 
 			System.out.println("Generating original image from matrix");
-			ImageUtilities.generateImageFromArray(imageGraph,
+			ImageFileHelper.generateImageFromArray(imageGraph,
 					ProblemConfiguration.OUTPUT_DIRECTORY
 							+ ProblemConfiguration.ORIGINAL_IMAGE_FILE);
 
@@ -76,13 +76,13 @@ public class ACOImageSegmentation {
 					.generateSegmentedImage();
 
 			System.out.println("Generating segmented image");
-			ImageUtilities.generateImageFromArray(segmentedImageAsMatrix,
+			ImageFileHelper.generateImageFromArray(segmentedImageAsMatrix,
 					ProblemConfiguration.OUTPUT_DIRECTORY
 							+ ProblemConfiguration.OUTPUT_IMAGE_FILE);
 
 			System.out.println("Generating images per cluster");
 			for (int i = 0; i < classifier.getNumberOfClusters(); i++) {
-				ImageUtilities.generateImageFromArray(
+				ImageFileHelper.generateImageFromArray(
 						classifier.generateSegmentedImagePerCluster(i),
 						ProblemConfiguration.OUTPUT_DIRECTORY + i + "_"
 								+ ProblemConfiguration.CLUSTER_IMAGE_FILE);
