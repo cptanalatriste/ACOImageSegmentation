@@ -9,9 +9,9 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
-import pe.edu.pucp.aco.imageseg.kmeans.KmeansClassifier;
 import pe.edu.pucp.imageseg.ImagePixel;
 import pe.edu.pucp.imageseg.aco.config.ProblemConfiguration;
+import pe.edu.pucp.imageseg.kmeans.KmeansClassifier;
 
 public class ACOImageSegmentation {
 
