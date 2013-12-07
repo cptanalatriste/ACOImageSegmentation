@@ -8,6 +8,10 @@ import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 
+/**
+ * @author CarlosG
+ *
+ */
 public class KmeansClassifier {
 
 	private static final double BACKGROUND_CLASS = 0.0;
