@@ -39,7 +39,6 @@ public class ProblemConfiguration {
 		result = result + "Evaporation parameter: " + EVAPORATION + "\n";
 		result = result + "Number of steps: " + NUMBER_OF_STEPS + "\n";
 		result = result + "Number of iterations: " + MAX_ITERATIONS + "\n";
-
 		result = result + "Pheromone importance: " + PHEROMONE_IMPORTANCE
 				+ "\n";
 		result = result + "Heuristic importance: " + HEURISTIC_IMPORTANCE
