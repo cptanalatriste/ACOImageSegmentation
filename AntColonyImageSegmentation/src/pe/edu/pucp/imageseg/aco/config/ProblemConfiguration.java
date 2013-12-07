@@ -4,7 +4,7 @@ public class ProblemConfiguration {
 
 	// Credits:
 	// https://www.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/BSDS300/html/dataset/images/gray/296059.html
-	public static final String IMAGE_FILE = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/src/69020.jpg";
+	public static final String IMAGE_FILE = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/src/3096.jpg";
 	public static final String OUTPUT_IMAGE_FILE = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/src/output.bmp";
 	public static final String PHEROMONE_IMAGE_FILE = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/src/pheromone.bmp";
 	public static final String ORIGINAL_IMAGE_FILE = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/src/original.bmp";
