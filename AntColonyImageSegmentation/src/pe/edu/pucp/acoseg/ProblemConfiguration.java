@@ -27,10 +27,33 @@ public class ProblemConfiguration {
 	public static final int COST_FUNCTION_PARAMETER_B = 10;
 
 	public static final double INITIAL_PHEROMONE_VALUE = Float.MIN_VALUE;
+	public static final int NUMBER_OF_CLUSTERS = 12;
+
 	public static final double DELTA = Float.MIN_VALUE;
 
 	public static final int GRAYSCALE_MIN_RANGE = 0;
 	public static final int GRAYSCALE_MAX_RANGE = 255;
-	public static final int NUMBER_OF_CLUSTERS = 12;
 
+	public static final String currentConfigurationAsString() {
+		String result = "Input file: " + IMAGE_FILE + "\n";
+		result = result + "Evaporation parameter: " + EVAPORATION + "\n";
+		result = result + "Number of steps: " + NUMBER_OF_STEPS + "\n";
+		result = result + "Number of iterations: " + MAX_ITERATIONS + "\n";
+
+		result = result + "Pheromone importance: " + PHEROMONE_IMPORTANCE
+				+ "\n";
+		result = result + "Heuristic importance: " + HEURISTIC_IMPORTANCE
+				+ "\n";
+
+		result = result + "Extra weight: " + EXTRA_WEIGHT + "\n";
+		result = result + "Parameter A for Cost Function: "
+				+ COST_FUNCTION_PARAMETER_A + "\n";
+		result = result + "Parameter B for Cost Function: "
+				+ COST_FUNCTION_PARAMETER_B + "\n";
+		result = result + "Initial Pheromone Value: " + INITIAL_PHEROMONE_VALUE
+				+ "\n";
+		result = result + "Number of Clústers: " + NUMBER_OF_CLUSTERS + "\n";
+
+		return result;
+	}
 }

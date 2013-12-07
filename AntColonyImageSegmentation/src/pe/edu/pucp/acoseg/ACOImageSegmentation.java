@@ -5,6 +5,7 @@ import java.util.Date;
 import pe.edu.pucp.acoseg.ant.AntColony;
 import pe.edu.pucp.acoseg.ant.Environment;
 import pe.edu.pucp.acoseg.cluster.KmeansClassifier;
+import pe.edu.pucp.acoseg.exper.TestSuite;
 import pe.edu.pucp.acoseg.image.ImageFileHelper;
 
 public class ACOImageSegmentation {
@@ -92,6 +93,8 @@ public class ACOImageSegmentation {
 			System.out.println("Finishing computation at: " + new Date());
 			System.out.println("Duration (in seconds): "
 					+ ((double) (endTime - startTime) / 1000000000.0));
+
+			new TestSuite().executeReport();
 
 		} catch (Exception e) {
 			e.printStackTrace();
