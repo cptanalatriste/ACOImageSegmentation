@@ -30,7 +30,6 @@ public class ACOImageSegmentation {
 			this.antColony.clearAntSolutions();
 			this.antColony.buildSolutions();
 			System.out.println("UPDATING PHEROMONE TRAILS");
-			System.out.println("Depositing pheromone");
 			this.antColony.depositPheromone();
 			this.environment.performEvaporation();
 			iteration++;

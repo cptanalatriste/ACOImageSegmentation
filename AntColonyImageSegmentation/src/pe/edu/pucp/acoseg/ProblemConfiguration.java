@@ -17,8 +17,8 @@ public class ProblemConfiguration {
 	public static final double EVAPORATION = 0.5;
 
 	// This are values from the original paper
-	public static final int NUMBER_OF_STEPS = 15;
 	public static final int MAX_ITERATIONS = 15;
+	public static final int NUMBER_OF_STEPS = 15;
 	public static final int PHEROMONE_IMPORTANCE = 1;
 	public static final int HEURISTIC_IMPORTANCE = 5;
 	public static final double EXTRA_WEIGHT = 0.6;
