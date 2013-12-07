@@ -14,7 +14,6 @@ import weka.core.Instances;
 
 public class KmeansClassifier {
 
-	private static final double BACKGROUND_CLASS = 0.0;
 	private static final int INITIAL_CAPACITY = 0;
 	private static final String DATASET_NAME = "PHEROMONE_GRAYSCALE_INFO";
 	private static final String GREYSCALE_VALUE_ATTRIBUTE = "greyscaleValue";
@@ -23,25 +22,52 @@ public class KmeansClassifier {
 	private int numberOfClusters;
 	private Environment environment;
 
+	double[] clusterAssignments;
+
 	public KmeansClassifier(Environment environment, int numberOfClusters) {
 		this.environment = environment;
 		this.numberOfClusters = numberOfClusters;
 	}
 
-	public int[][] generateSegmentedImage() throws Exception {
+	public void doCluster() throws Exception {
 		Instances instances = getInstancesFromMatrix();
-		double[] clusterAssignments = getClusterAssignments(instances);
+		clusterAssignments = getClusterAssignments(instances);
+	}
+
+	public int[][] generateSegmentedImage() throws Exception {
+		if (clusterAssignments == null) {
+			doCluster();
+		}
 		int[][] resultMatrix = new int[environment.getNumberOfRows()][environment
 				.getNumberOfColumns()];
 
 		int pixelCounter = 0;
 		for (int i = 0; i < environment.getNumberOfRows(); i++) {
 			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
-				int grayScaleValue = ProblemConfiguration.GRAYSCALE_MAX_RANGE;
-				if (clusterAssignments[pixelCounter] == BACKGROUND_CLASS) {
-					grayScaleValue = ProblemConfiguration.GRAYSCALE_MIN_RANGE;
+				resultMatrix[i][j] = (int) ((clusterAssignments[pixelCounter] + 1)
+						/ numberOfClusters * ProblemConfiguration.GRAYSCALE_MAX_RANGE);
+				pixelCounter++;
+			}
+		}
+		return resultMatrix;
+	}
+
+	public int[][] generateSegmentedImagePerCluster(double clusterNumber)
+			throws Exception {
+		if (clusterAssignments == null) {
+			doCluster();
+		}
+		int[][] resultMatrix = new int[environment.getNumberOfRows()][environment
+				.getNumberOfColumns()];
+
+		int pixelCounter = 0;
+		for (int i = 0; i < environment.getNumberOfRows(); i++) {
+			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
+				int greyscaleValue = ProblemConfiguration.GRAYSCALE_MIN_RANGE;
+				if (clusterAssignments[pixelCounter] == clusterNumber) {
+					greyscaleValue = ProblemConfiguration.GRAYSCALE_MAX_RANGE / 2;
 				}
-				resultMatrix[i][j] = grayScaleValue;
+				resultMatrix[i][j] = greyscaleValue;
 				pixelCounter++;
 			}
 		}
@@ -73,7 +99,8 @@ public class KmeansClassifier {
 				.getNormalizedPheromoneMatrix(ProblemConfiguration.GRAYSCALE_MAX_RANGE);
 		System.out.println("Generating pheromone distribution image");
 		ImageUtilities.generateImageFromArray(normalizedPheromoneMatrix,
-				ProblemConfiguration.PHEROMONE_IMAGE_FILE);
+				ProblemConfiguration.OUTPUT_DIRECTORY
+						+ ProblemConfiguration.PHEROMONE_IMAGE_FILE);
 
 		for (int i = 0; i < environment.getNumberOfRows(); i++) {
 			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
@@ -84,6 +111,10 @@ public class KmeansClassifier {
 			}
 		}
 		return instances;
+	}
+
+	public int getNumberOfClusters() {
+		return numberOfClusters;
 	}
 
 }

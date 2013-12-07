@@ -46,7 +46,8 @@ public class ACOImageSegmentation {
 		System.out.println("=============================");
 
 		try {
-			String imageFile = ProblemConfiguration.IMAGE_FILE;
+			String imageFile = ProblemConfiguration.INPUT_DIRECTORY
+					+ ProblemConfiguration.IMAGE_FILE;
 			System.out.println("Data file: " + imageFile);
 
 			int[][] imageGraph = ImageUtilities
@@ -54,7 +55,8 @@ public class ACOImageSegmentation {
 
 			System.out.println("Generating original image from matrix");
 			ImageUtilities.generateImageFromArray(imageGraph,
-					ProblemConfiguration.ORIGINAL_IMAGE_FILE);
+					ProblemConfiguration.OUTPUT_DIRECTORY
+							+ ProblemConfiguration.ORIGINAL_IMAGE_FILE);
 
 			Environment environment = new Environment(imageGraph);
 			ACOImageSegmentation acoImageSegmentation = new ACOImageSegmentation(
@@ -66,6 +68,8 @@ public class ACOImageSegmentation {
 
 			System.out.println("Starting K-means clustering");
 
+			// TODO(cgavidia): There should a method to get the number of
+			// clústers automatically
 			KmeansClassifier classifier = new KmeansClassifier(environment,
 					ProblemConfiguration.NUMBER_OF_CLUSTERS);
 			int[][] segmentedImageAsMatrix = classifier
@@ -73,7 +77,16 @@ public class ACOImageSegmentation {
 
 			System.out.println("Generating segmented image");
 			ImageUtilities.generateImageFromArray(segmentedImageAsMatrix,
-					ProblemConfiguration.OUTPUT_IMAGE_FILE);
+					ProblemConfiguration.OUTPUT_DIRECTORY
+							+ ProblemConfiguration.OUTPUT_IMAGE_FILE);
+
+			System.out.println("Generating images per cluster");
+			for (int i = 0; i < classifier.getNumberOfClusters(); i++) {
+				ImageUtilities.generateImageFromArray(
+						classifier.generateSegmentedImagePerCluster(i),
+						ProblemConfiguration.OUTPUT_DIRECTORY + i + "_"
+								+ ProblemConfiguration.CLUSTER_IMAGE_FILE);
+			}
 
 			long endTime = System.nanoTime();
 			System.out.println("Finishing computation at: " + new Date());
