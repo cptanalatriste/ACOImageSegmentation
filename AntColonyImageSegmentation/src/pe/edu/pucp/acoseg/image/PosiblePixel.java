@@ -3,11 +3,22 @@ package pe.edu.pucp.acoseg.image;
 public class PosiblePixel {
 	private ImagePixel imagePixel;
 	private double probability;
+	private double heuristicTimesPheromone;
 
-	public PosiblePixel(ImagePixel imagePixel, double probability) {
+	public PosiblePixel(ImagePixel imagePixel, double heuristicTimesPheromone,
+			double probability) {
 		super();
 		this.imagePixel = imagePixel;
+		this.heuristicTimesPheromone = heuristicTimesPheromone;
 		this.probability = probability;
+	}
+
+	public double getHeuristicTimesPheromone() {
+		return heuristicTimesPheromone;
+	}
+
+	public void setHeuristicTimesPheromone(double heuristicTimesPheromone) {
+		this.heuristicTimesPheromone = heuristicTimesPheromone;
 	}
 
 	public ImagePixel getImagePixel() {

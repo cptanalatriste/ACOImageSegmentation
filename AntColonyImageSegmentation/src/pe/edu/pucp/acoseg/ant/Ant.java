@@ -34,6 +34,24 @@ public class Ant {
 		}
 	}
 
+	public boolean isPixelVisited(ImagePixel imagePixel) {
+		// TODO(cgavidia): Pass this to equals
+		if (!ProblemConfiguration.ALLOW_VISITED_PIXELS) {
+			for (ImagePixel visitedPixel : pixelPath) {
+				if (visitedPixel != null
+						&& visitedPixel.getxCoordinate() == imagePixel
+								.getxCoordinate()
+						&& visitedPixel.getyCoordinate() == imagePixel
+								.getyCoordinate()
+						&& visitedPixel.getGreyScaleValue() == imagePixel
+								.getGreyScaleValue()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public int getCurrentIndex() {
 		return currentIndex;
 	}
@@ -44,21 +62,36 @@ public class Ant {
 
 	public ImagePixel selectNextPixel(double[][] pheromoneTrails,
 			int[][] imageGraph) {
-		// TODO(cgavidia): Not considering best-choice at all
-
-		List<PosiblePixel> probabilities = getProbabilities(pheromoneTrails,
-				imageGraph);
+		ImagePixel nextPixel = null;
 		Random random = new Random();
 		double randomValue = random.nextDouble();
-		double total = 0;
-		for (PosiblePixel posiblePixel : probabilities) {
-			total = total + posiblePixel.getProbability();
-			if (total >= randomValue) {
-				return posiblePixel.getImagePixel();
-			}
+		List<PosiblePixel> probabilities = getProbabilities(pheromoneTrails,
+				imageGraph);
 
+		// TODO(cgavidia): Calibrate this parameter
+		if (randomValue < ProblemConfiguration.BEST_CHOICE_PROBABILITY) {
+			double currentMaximumPheromoneTimesHeuristic = -1;
+			for (PosiblePixel posiblePixel : probabilities) {
+				if (!isPixelVisited(posiblePixel.getImagePixel())
+						&& posiblePixel.getHeuristicTimesPheromone() > currentMaximumPheromoneTimesHeuristic) {
+					currentMaximumPheromoneTimesHeuristic = posiblePixel
+							.getHeuristicTimesPheromone();
+					nextPixel = posiblePixel.getImagePixel();
+				}
+			}
+			return nextPixel;
+		} else {
+			double anotherRandomValue = random.nextDouble();
+			double total = 0;
+			for (PosiblePixel posiblePixel : probabilities) {
+				total = total + posiblePixel.getProbability();
+				if (total >= anotherRandomValue) {
+					return posiblePixel.getImagePixel();
+				}
+
+			}
 		}
-		return null;
+		return nextPixel;
 	}
 
 	private List<PosiblePixel> getProbabilities(double[][] pheromoneTrails,
@@ -70,26 +103,36 @@ public class Ant {
 				.getNeighbourhood(imageGraph);
 		double denominator = 0.0;
 		for (ImagePixel neighbour : neighbours) {
-			// We add a small number to avoid division by zero
-			double heuristicValue = Math.abs(neighbour.getGreyScaleValue()
-					- getMeanGrayScaleValue())
-					+ ProblemConfiguration.DELTA;
-			double pheromoneTrailValue = pheromoneTrails[neighbour
-					.getxCoordinate()][neighbour.getyCoordinate()]
-					+ ProblemConfiguration.DELTA;
-			double heuristicTimesPheromone = Math.pow(heuristicValue,
-					ProblemConfiguration.HEURISTIC_IMPORTANCE)
-					* Math.pow(pheromoneTrailValue,
-							ProblemConfiguration.PHEROMONE_IMPORTANCE);
+			if (!isPixelVisited(neighbour)) {
+				// We add a small number to avoid division by zero
+				double heuristicValue = Math.abs(neighbour.getGreyScaleValue()
+						- getMeanGrayScaleValue())
+						+ ProblemConfiguration.DELTA;
+				double pheromoneTrailValue = pheromoneTrails[neighbour
+						.getxCoordinate()][neighbour.getyCoordinate()]
+						+ ProblemConfiguration.DELTA;
+				double heuristicTimesPheromone = Math.pow(heuristicValue,
+						ProblemConfiguration.HEURISTIC_IMPORTANCE)
+						* Math.pow(pheromoneTrailValue,
+								ProblemConfiguration.PHEROMONE_IMPORTANCE);
 
-			// Temporary, we're storing the product as probability.
-			pixelsWithProbabilities.add(new PosiblePixel(neighbour,
-					heuristicTimesPheromone));
-			denominator = denominator + heuristicTimesPheromone;
+				// Temporary, we're storing the product as probability.
+				pixelsWithProbabilities.add(new PosiblePixel(neighbour,
+						heuristicTimesPheromone, 0.0));
+				denominator = denominator + heuristicTimesPheromone;
+			}
+		}
+
+		// TODO(cgavidia): Remove if doesn't improve
+		if (pixelsWithProbabilities.size() == 0) {
+			ImagePixel imagePixel = neighbours.get(new Random()
+					.nextInt(neighbours.size()));
+			pixelsWithProbabilities.add(new PosiblePixel(imagePixel, 1.0, 1.0));
 		}
 
 		for (PosiblePixel posiblePixel : pixelsWithProbabilities) {
-			double heuristicTimesPheromone = posiblePixel.getProbability();
+			double heuristicTimesPheromone = posiblePixel
+					.getHeuristicTimesPheromone();
 			// Now we're dividing by the total sum
 			posiblePixel.setProbability(heuristicTimesPheromone / denominator);
 		}
@@ -104,5 +147,16 @@ public class Ant {
 			grayScaleSum = grayScaleSum + currentPixel.getGreyScaleValue();
 		}
 		return grayScaleSum / (currentIndex);
+	}
+
+	public String pathAsString() {
+		String result = "";
+		for (ImagePixel pixel : pixelPath) {
+			if (pixel != null) {
+				result = result + "(" + pixel.getxCoordinate() + ", "
+						+ pixel.getyCoordinate() + ")  ";
+			}
+		}
+		return result;
 	}
 }

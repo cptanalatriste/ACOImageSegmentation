@@ -37,9 +37,12 @@ public class Environment {
 	}
 
 	public void initializePheromoneMatrix() {
-		// TODO(cgavidia): Not doing pheromone initialization as MMMAS for now.
 		System.out.println("INITIALIZING PHEROMONE MATRIX");
 		double initialPheromoneValue = ProblemConfiguration.INITIAL_PHEROMONE_VALUE;
+		if (ProblemConfiguration.MMAS_PHEROMONE_UPDATE) {
+			initialPheromoneValue = ProblemConfiguration.MAXIMUM_PHEROMONE_VALUE;
+		}
+
 		System.out.println("Initial pheromone value: " + initialPheromoneValue);
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int j = 0; j < numberOfColumns; j++) {
@@ -52,11 +55,14 @@ public class Environment {
 		System.out.println("Performing evaporation on all edges");
 		System.out.println("Evaporation ratio: "
 				+ ProblemConfiguration.EVAPORATION);
-		// TODO(cgavidia): No minimum or maximum considered
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int j = 0; j < numberOfColumns; j++) {
 				double newValue = pheromoneTrails[i][j]
 						* ProblemConfiguration.EVAPORATION;
+				if (ProblemConfiguration.MMAS_PHEROMONE_UPDATE
+						&& newValue < ProblemConfiguration.MINIMUM_PHEROMONE_VALUE) {
+					newValue = ProblemConfiguration.MINIMUM_PHEROMONE_VALUE;
+				}
 				pheromoneTrails[i][j] = newValue;
 			}
 		}
@@ -66,8 +72,8 @@ public class Environment {
 		System.out.println("Normalizing pheromone matrix");
 
 		int[][] normalizedPheromoneMatrix = new int[numberOfRows][numberOfColumns];
-		double currentMin = 0;
-		double currentMax = 0;
+		double currentMin = pheromoneTrails[0][0];
+		double currentMax = pheromoneTrails[0][0];
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int j = 0; j < numberOfColumns; j++) {
 				if (pheromoneTrails[i][j] < currentMin) {
@@ -77,6 +83,9 @@ public class Environment {
 				}
 			}
 		}
+
+		System.out.println("currentMin: " + currentMin);
+		System.out.println("currentMax: " + currentMax);
 
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int j = 0; j < numberOfColumns; j++) {

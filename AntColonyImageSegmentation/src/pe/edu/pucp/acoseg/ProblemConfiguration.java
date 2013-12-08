@@ -16,6 +16,18 @@ public class ProblemConfiguration {
 
 	public static final double EVAPORATION = 0.5;
 
+	// This features were disabled as it affects the quality of solutuion.
+	public static final double BEST_CHOICE_PROBABILITY = 0.0;
+	public static final boolean ONLY_BEST_CAN_UPDATE = false;
+	public static boolean MMAS_PHEROMONE_UPDATE = false;
+	public static final boolean ALLOW_VISITED_PIXELS = true;
+	public static final boolean DEPOSITE_PHEROMONE_ONLINE = false;
+	public static final boolean RANDOMIZE_BEFORE_BUILD = false;
+
+	// Max-Min Ant System Pheromone parameters
+	public static final double MAXIMUM_PHEROMONE_VALUE = 0.0001;
+	public static final double MINIMUM_PHEROMONE_VALUE = MAXIMUM_PHEROMONE_VALUE / 5;
+
 	// This are values from the original paper
 	public static final int MAX_ITERATIONS = 15;
 	public static final int NUMBER_OF_STEPS = 15;

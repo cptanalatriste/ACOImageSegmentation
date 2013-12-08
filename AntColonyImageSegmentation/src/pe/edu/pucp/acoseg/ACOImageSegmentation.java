@@ -19,7 +19,7 @@ public class ACOImageSegmentation {
 				ProblemConfiguration.NUMBER_OF_STEPS);
 	}
 
-	private void solveProblem() {
+	private void solveProblem() throws Exception {
 		this.environment.initializePheromoneMatrix();
 		int iteration = 0;
 		System.out.println("STARTING ITERATIONS");
@@ -28,9 +28,12 @@ public class ACOImageSegmentation {
 		while (iteration < ProblemConfiguration.MAX_ITERATIONS) {
 			System.out.println("Current iteration: " + iteration);
 			this.antColony.clearAntSolutions();
-			this.antColony.buildSolutions();
+			this.antColony
+					.buildSolutions(ProblemConfiguration.DEPOSITE_PHEROMONE_ONLINE);
 			System.out.println("UPDATING PHEROMONE TRAILS");
-			this.antColony.depositPheromone();
+			if (!ProblemConfiguration.DEPOSITE_PHEROMONE_ONLINE) {
+				this.antColony.depositPheromone();
+			}
 			this.environment.performEvaporation();
 			iteration++;
 		}
@@ -75,6 +78,11 @@ public class ACOImageSegmentation {
 			int[][] segmentedImageAsMatrix = classifier
 					.generateSegmentedImage();
 
+			long endTime = System.nanoTime();
+			System.out.println("Finishing computation at: " + new Date());
+			System.out.println("Duration (in seconds): "
+					+ ((double) (endTime - startTime) / 1000000000.0));
+
 			System.out.println("Generating segmented image");
 			ImageFileHelper.generateImageFromArray(segmentedImageAsMatrix,
 					ProblemConfiguration.OUTPUT_DIRECTORY
@@ -87,11 +95,6 @@ public class ACOImageSegmentation {
 						ProblemConfiguration.OUTPUT_DIRECTORY + i + "_"
 								+ ProblemConfiguration.CLUSTER_IMAGE_FILE);
 			}
-
-			long endTime = System.nanoTime();
-			System.out.println("Finishing computation at: " + new Date());
-			System.out.println("Duration (in seconds): "
-					+ ((double) (endTime - startTime) / 1000000000.0));
 
 			new TestSuite().executeReport();
 
