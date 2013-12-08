@@ -72,7 +72,8 @@ public class ACOImageSegmentation {
 			System.out.println("Starting K-means clustering");
 
 			// TODO(cgavidia): There should a method to get the number of
-			// clústers automatically
+			// clústers automatically. Also, son preprocessing or postprocessing
+			// would improve quality.
 			KmeansClassifier classifier = new KmeansClassifier(environment,
 					ProblemConfiguration.NUMBER_OF_CLUSTERS);
 			int[][] segmentedImageAsMatrix = classifier
