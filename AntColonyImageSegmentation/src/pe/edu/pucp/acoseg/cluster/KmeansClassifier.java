@@ -87,10 +87,16 @@ public class KmeansClassifier {
 		return clusterAssignments;
 	}
 
+	@SuppressWarnings("unused")
 	private Instances getInstancesFromMatrix() throws IOException {
 		FastVector atributes = new FastVector();
-		atributes.addElement(new Attribute(PHEROMONE_VALUE_ATTRIBUTE));
-		atributes.addElement(new Attribute(GREYSCALE_VALUE_ATTRIBUTE));
+		if (ProblemConfiguration.USE_PHEROMONE_FOR_CLUSTERING) {
+			atributes.addElement(new Attribute(PHEROMONE_VALUE_ATTRIBUTE));
+		}
+
+		if (ProblemConfiguration.USE_GREYSCALE_FOR_CLUSTERING) {
+			atributes.addElement(new Attribute(GREYSCALE_VALUE_ATTRIBUTE));
+		}
 
 		Instances instances = new Instances(DATASET_NAME, atributes,
 				INITIAL_CAPACITY);
@@ -105,8 +111,17 @@ public class KmeansClassifier {
 		for (int i = 0; i < environment.getNumberOfRows(); i++) {
 			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
 				Instance instance = new Instance(atributes.size());
-				instance.setValue(0, normalizedPheromoneMatrix[i][j]);
-				instance.setValue(1, environment.getImageGraph()[i][j]);
+				if (ProblemConfiguration.USE_PHEROMONE_FOR_CLUSTERING
+						&& ProblemConfiguration.USE_GREYSCALE_FOR_CLUSTERING) {
+					instance.setValue(0, normalizedPheromoneMatrix[i][j]);
+					instance.setValue(1, environment.getImageGraph()[i][j]);
+				} else if (ProblemConfiguration.USE_PHEROMONE_FOR_CLUSTERING
+						&& !ProblemConfiguration.USE_GREYSCALE_FOR_CLUSTERING) {
+					instance.setValue(0, normalizedPheromoneMatrix[i][j]);
+				} else if (!ProblemConfiguration.USE_PHEROMONE_FOR_CLUSTERING
+						&& ProblemConfiguration.USE_GREYSCALE_FOR_CLUSTERING) {
+					instance.setValue(0, environment.getImageGraph()[i][j]);
+				}
 				instances.add(instance);
 			}
 		}

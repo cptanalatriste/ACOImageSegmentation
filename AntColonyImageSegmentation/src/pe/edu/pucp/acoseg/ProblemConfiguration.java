@@ -40,6 +40,8 @@ public class ProblemConfiguration {
 
 	public static final double INITIAL_PHEROMONE_VALUE = Float.MIN_VALUE;
 	public static final int NUMBER_OF_CLUSTERS = 12;
+	public static final boolean USE_PHEROMONE_FOR_CLUSTERING = true;
+	public static final boolean USE_GREYSCALE_FOR_CLUSTERING = true;
 
 	public static final double DELTA = Float.MIN_VALUE;
 
