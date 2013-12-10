@@ -23,6 +23,8 @@ public class TestSuite {
 
 	public void executeReport() throws Exception {
 
+		// TODO(cgavidia): It would be good to evaluate the behaviuor with
+		// noise.
 		System.out.println("\n\nEXPERIMENT EXECUTION REPORT");
 		System.out.println("===============================");
 

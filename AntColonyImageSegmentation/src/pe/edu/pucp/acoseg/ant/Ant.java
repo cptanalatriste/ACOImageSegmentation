@@ -105,9 +105,11 @@ public class Ant {
 		for (ImagePixel neighbour : neighbours) {
 			if (!isPixelVisited(neighbour)) {
 				// We add a small number to avoid division by zero
-				double heuristicValue = Math.abs(neighbour.getGreyScaleValue()
-						- getMeanGrayScaleValue())
-						+ ProblemConfiguration.DELTA;
+				double heuristicValue = 1 / Math.abs(neighbour
+						.getGreyScaleValue()
+						- getMeanGrayScaleValue()
+						+ ProblemConfiguration.DELTA);
+
 				double pheromoneTrailValue = pheromoneTrails[neighbour
 						.getxCoordinate()][neighbour.getyCoordinate()]
 						+ ProblemConfiguration.DELTA;

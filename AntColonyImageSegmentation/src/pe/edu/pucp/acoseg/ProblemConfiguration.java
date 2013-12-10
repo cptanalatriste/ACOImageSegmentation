@@ -4,7 +4,7 @@ public class ProblemConfiguration {
 
 	// Credits:
 	// https://www.eecs.berkeley.edu/Research/Projects/CS/vision/bsds/BSDS300/html/dataset/images/gray/296059.html
-
+	// http://brainweb.bic.mni.mcgill.ca/brainweb/anatomic_normal_20.html
 	public static final String INPUT_DIRECTORY = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/inputImg/";
 	public static final String OUTPUT_DIRECTORY = "C:/Users/CarlosG/Documents/GitHub/ACOImageSegmentation/AntColonyImageSegmentation/outputImg/";
 

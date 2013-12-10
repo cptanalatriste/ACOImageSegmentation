@@ -76,6 +76,9 @@ public class KmeansClassifier {
 
 	private double[] getClusterAssignments(Instances instances)
 			throws Exception {
+		// TODO(cgavidia): Maybe this can be optimized with more adequate
+		// parameters.
+
 		SimpleKMeans simpleKMeans = new SimpleKMeans();
 		simpleKMeans.setNumClusters(numberOfClusters);
 		simpleKMeans.buildClusterer(instances);
