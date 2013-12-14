@@ -1,10 +1,10 @@
-package pe.edu.pucp.acoseg.cluster;
+package pe.edu.pucp.acothres.cluster;
 
 import java.io.IOException;
 
-import pe.edu.pucp.acoseg.ProblemConfiguration;
-import pe.edu.pucp.acoseg.ant.Environment;
-import pe.edu.pucp.acoseg.image.ImageFileHelper;
+import pe.edu.pucp.acosthres.image.ImageFileHelper;
+import pe.edu.pucp.acothres.ProblemConfiguration;
+import pe.edu.pucp.acothres.ant.Environment;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.SimpleKMeans;
 import weka.core.Attribute;

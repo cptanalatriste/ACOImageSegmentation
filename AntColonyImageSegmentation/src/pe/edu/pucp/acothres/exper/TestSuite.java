@@ -1,9 +1,9 @@
-package pe.edu.pucp.acoseg.exper;
+package pe.edu.pucp.acothres.exper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pe.edu.pucp.acoseg.ProblemConfiguration;
+import pe.edu.pucp.acothres.ProblemConfiguration;
 
 public class TestSuite {
 

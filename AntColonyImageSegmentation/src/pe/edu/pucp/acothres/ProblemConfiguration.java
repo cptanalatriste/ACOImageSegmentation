@@ -1,4 +1,4 @@
-package pe.edu.pucp.acoseg;
+package pe.edu.pucp.acothres;
 
 public class ProblemConfiguration {
 
@@ -35,11 +35,11 @@ public class ProblemConfiguration {
 	public static final int HEURISTIC_IMPORTANCE = 5;
 	public static final double EXTRA_WEIGHT = 0.6;
 
-	public static final int COST_FUNCTION_PARAMETER_A = 5000;
-	public static final int COST_FUNCTION_PARAMETER_B = 10;
+	public static final int COST_FUNCTION_PARAMETER_A = 500;
+	public static final int COST_FUNCTION_PARAMETER_B = 50;
 
 	public static final double INITIAL_PHEROMONE_VALUE = Float.MIN_VALUE;
-	public static final int NUMBER_OF_CLUSTERS = 12;
+	public static final int NUMBER_OF_CLUSTERS = 2;
 	public static final boolean USE_PHEROMONE_FOR_CLUSTERING = true;
 	public static final boolean USE_GREYSCALE_FOR_CLUSTERING = true;
 

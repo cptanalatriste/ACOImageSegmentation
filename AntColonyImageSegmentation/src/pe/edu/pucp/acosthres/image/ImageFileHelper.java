@@ -1,4 +1,4 @@
-package pe.edu.pucp.acoseg.image;
+package pe.edu.pucp.acosthres.image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;

@@ -1,6 +1,6 @@
-package pe.edu.pucp.acoseg.ant;
+package pe.edu.pucp.acothres.ant;
 
-import pe.edu.pucp.acoseg.ProblemConfiguration;
+import pe.edu.pucp.acothres.ProblemConfiguration;
 
 public class Environment {
 

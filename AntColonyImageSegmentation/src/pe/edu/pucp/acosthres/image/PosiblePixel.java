@@ -1,4 +1,4 @@
-package pe.edu.pucp.acoseg.image;
+package pe.edu.pucp.acosthres.image;
 
 public class PosiblePixel {
 	private ImagePixel imagePixel;

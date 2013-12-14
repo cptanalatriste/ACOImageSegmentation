@@ -1,11 +1,11 @@
-package pe.edu.pucp.acoseg.ant;
+package pe.edu.pucp.acothres.ant;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import pe.edu.pucp.acoseg.ProblemConfiguration;
-import pe.edu.pucp.acoseg.image.ImagePixel;
+import pe.edu.pucp.acosthres.image.ImagePixel;
+import pe.edu.pucp.acothres.ProblemConfiguration;
 
 public class AntColony {
 

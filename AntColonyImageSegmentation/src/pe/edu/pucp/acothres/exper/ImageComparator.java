@@ -1,6 +1,6 @@
-package pe.edu.pucp.acoseg.exper;
+package pe.edu.pucp.acothres.exper;
 
-import pe.edu.pucp.acoseg.image.ImageFileHelper;
+import pe.edu.pucp.acosthres.image.ImageFileHelper;
 
 public class ImageComparator {
 
