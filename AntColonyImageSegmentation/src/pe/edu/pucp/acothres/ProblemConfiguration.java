@@ -21,22 +21,22 @@ public class ProblemConfiguration {
 	public static final boolean ONLY_BEST_CAN_UPDATE = false;
 	public static boolean MMAS_PHEROMONE_UPDATE = false;
 	public static final boolean ALLOW_VISITED_PIXELS = true;
-	public static final boolean DEPOSITE_PHEROMONE_ONLINE = false;
-	public static final boolean RANDOMIZE_BEFORE_BUILD = false;
+	public static final boolean DEPOSITE_PHEROMONE_ONLINE = true;
+	public static final boolean RANDOMIZE_BEFORE_BUILD = true;
 
 	// Max-Min Ant System Pheromone parameters
 	public static final double MAXIMUM_PHEROMONE_VALUE = 0.0001;
 	public static final double MINIMUM_PHEROMONE_VALUE = MAXIMUM_PHEROMONE_VALUE / 5;
 
 	// This are values from the original paper
-	public static final int MAX_ITERATIONS = 15;
+	public static final int MAX_ITERATIONS = 5;
 	public static final int NUMBER_OF_STEPS = 15;
 	public static final int PHEROMONE_IMPORTANCE = 1;
 	public static final int HEURISTIC_IMPORTANCE = 5;
 	public static final double EXTRA_WEIGHT = 0.6;
 
 	public static final int COST_FUNCTION_PARAMETER_A = 500;
-	public static final int COST_FUNCTION_PARAMETER_B = 50;
+	public static final int COST_FUNCTION_PARAMETER_B = 10;
 
 	public static final double INITIAL_PHEROMONE_VALUE = Float.MIN_VALUE;
 	public static final int NUMBER_OF_CLUSTERS = 2;
@@ -47,6 +47,9 @@ public class ProblemConfiguration {
 
 	public static final int GRAYSCALE_MIN_RANGE = 0;
 	public static final int GRAYSCALE_MAX_RANGE = 255;
+	public static final int ABSENT_PIXEL_FLAG = -1;
+	public static final int ABSENT_PIXEL_CLUSTER = -1;
+	public static final int GRAYSCALE_DELTA = 10;
 
 	public static final String currentConfigurationAsString() {
 		String result = "Input file: " + IMAGE_FILE + "\n";

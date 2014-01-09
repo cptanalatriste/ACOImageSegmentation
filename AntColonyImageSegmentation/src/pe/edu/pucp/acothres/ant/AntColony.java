@@ -16,15 +16,22 @@ public class AntColony {
 
 	public AntColony(Environment environment, int numberOfSteps) {
 		this.environment = environment;
-		// Ant Ant per every pixel
-		this.numberOfAnts = environment.getNumberOfRows()
-				* environment.getNumberOfColumns();
 		System.out.println("Number of Ants in Colony: " + numberOfAnts);
 		this.antColony = new ArrayList<Ant>(numberOfAnts);
 		this.numberOfSteps = numberOfSteps;
-		for (int j = 0; j < numberOfAnts; j++) {
-			antColony.add(new Ant(numberOfSteps, environment.getNumberOfRows(),
-					environment.getNumberOfColumns()));
+		// Ant Ant per every non-empty pixel
+		for (int i = 0; i < environment.getNumberOfRows(); i++) {
+			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
+				if (environment.getImageGraph()[i][j] != ProblemConfiguration.ABSENT_PIXEL_FLAG) {
+					Ant ant = new Ant(numberOfSteps,
+							environment.getNumberOfRows(),
+							environment.getNumberOfColumns());
+					antColony.add(ant);
+					ant.getPixelPath()[0] = new ImagePixel(i, j,
+							environment.getImageGraph());
+					this.numberOfAnts++;
+				}
+			}
 		}
 	}
 
@@ -57,21 +64,15 @@ public class AntColony {
 	}
 
 	public void clearAntSolutions() {
+
+		// TODO(cgavidia): This can clearly be improved
 		System.out.println("CLEARING ANT SOLUTIONS");
-
-		int antCounter = 0;
-		for (int i = 0; i < environment.getNumberOfRows(); i++) {
-			for (int j = 0; j < environment.getNumberOfColumns(); j++) {
-				Ant ant = antColony.get(antCounter);
-				ImagePixel initialPixel = new ImagePixel(i, j,
-						environment.getImageGraph());
-				ant.clear();
-				ant.setCurrentIndex(0);
-				ant.visitPixel(initialPixel);
-				antCounter++;
-			}
+		for (Ant ant : antColony) {
+			ImagePixel initialPixel = ant.getPixelPath()[0];
+			ant.clear();
+			ant.setCurrentIndex(0);
+			ant.visitPixel(initialPixel);
 		}
-
 	}
 
 	public void depositPheromone() {

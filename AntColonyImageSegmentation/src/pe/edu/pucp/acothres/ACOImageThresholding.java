@@ -54,6 +54,8 @@ public class ACOImageThresholding {
 		ImageFileHelper.generateImageFromArray(imageGraph,
 				ProblemConfiguration.OUTPUT_DIRECTORY
 						+ ProblemConfiguration.ORIGINAL_IMAGE_FILE);
+		System.out.println("Starting background filtering process");
+		imageGraph = ImageFileHelper.removeBackgroundPixels(imageGraph);
 
 		Environment environment = new Environment(imageGraph);
 		ACOImageThresholding acoImageSegmentation = new ACOImageThresholding(

@@ -103,7 +103,8 @@ public class Ant {
 				.getNeighbourhood(imageGraph);
 		double denominator = 0.0;
 		for (ImagePixel neighbour : neighbours) {
-			if (!isPixelVisited(neighbour)) {
+			if (!isPixelVisited(neighbour)
+					&& neighbour.getGreyScaleValue() != ProblemConfiguration.ABSENT_PIXEL_FLAG) {
 				// We add a small number to avoid division by zero
 				double heuristicValue = 1 / Math.abs(neighbour
 						.getGreyScaleValue()
