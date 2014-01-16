@@ -50,6 +50,9 @@ public class ProblemConfiguration {
 	public static final int ABSENT_PIXEL_FLAG = -1;
 	public static final int ABSENT_PIXEL_CLUSTER = -1;
 	public static final int GRAYSCALE_DELTA = 10;
+	public static final int[][] DEFAULT_STRUCTURING_ELEMENT = {
+			{ 255, 255, 255 }, { 255, 255, 255 }, { 255, 255, 255 } };
+	public static final int OPENING_REPETITION_PARAMETER = 1;
 
 	public static final String currentConfigurationAsString() {
 		String result = "Input file: " + IMAGE_FILE + "\n";

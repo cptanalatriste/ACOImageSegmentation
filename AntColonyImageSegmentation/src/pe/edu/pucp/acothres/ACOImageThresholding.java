@@ -74,6 +74,10 @@ public class ACOImageThresholding {
 				ProblemConfiguration.NUMBER_OF_CLUSTERS);
 		int[][] segmentedImageAsMatrix = classifier.generateSegmentedImage();
 
+		segmentedImageAsMatrix = ImageFileHelper.openImage(
+				segmentedImageAsMatrix,
+				ProblemConfiguration.OPENING_REPETITION_PARAMETER);
+
 		long endTime = System.nanoTime();
 		System.out.println("Finishing computation at: " + new Date());
 		System.out.println("Duration (in seconds): "
